@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
+
+*{
+    font-family: 'Nanum Gothic', sans-serif;
+    color: #37474f;
+}
+
+#container {
+    float: right;
+}
+
+#content {
+    float: left;
+    text-align: center;
+}
+
+.my-fade-in {
+    animation: fadein 4s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+
+.desc {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+
+.title {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.object {
+    width: 500px;
+    height: 700px;
+    margin: 0px;
+    padding: 0px;
+}
+.korea {
+    position: relative;
+    top: -55px;
+}
+
+
