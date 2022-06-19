@@ -1,4 +1,4 @@
-package youngjun.bigdataProject.domain;
+package youngjun.bigdataProject.domain.weather;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-//@Component
+@Component
 @Transactional
 @RequiredArgsConstructor
 public class WeatherScheduler {

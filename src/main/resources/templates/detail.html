@@ -8,80 +8,121 @@
 <body>
   <section class="main-content">
 		<div class="container">
-			<h1 class="text-center text-uppercase">Analytics and Statistics Card</h1>
+			<h1 class="text-center text-uppercase">날씨 통계</h1>
 			<br>
 			<br>
 			<div class="row">
-				<div class="col-sm-4 offset-sm-2">
+				<div class="col-3">
 					<div class="stat-card">
 						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">Revenue</p>
-							<h2><i class="fa fa-dollar"></i> 1,254</h2>
-							<div>
-								<span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> 
-								<span class="text-muted">vs last 28 days</span>
-							</div>
+							<p class="text-uppercase mb-1 text-muted">온도</p>
+							<h2 th:text="${weather.temp}"></h2>
+			
 						</div>
 						<div class="stat-card__icon stat-card__icon--success">
 							<div class="stat-card__icon-circle">
-								<i class="fa fa-suitcase"></i>
+								<i class="fa fa-thermometer-quarter"></i>
 							</div>
 						</div>
 					</div>
 				</div>
-        <div class="col-sm-4 offset-sm-2">
+				<div class="col-3">
 					<div class="stat-card">
 						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">Revenue</p>
-							<h2><i class="fa fa-dollar"></i> 1,254</h2>
-							<div>
-								<span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> 
-								<span class="text-muted">vs last 28 days</span>
-							</div>
+							<p class="text-uppercase mb-1 text-muted">날씨</p>
+							<h2 th:text="${weather.status}">1,254</h2>
+				
 						</div>
 						<div class="stat-card__icon stat-card__icon--success">
 							<div class="stat-card__icon-circle">
-								<i class="fa fa-suitcase"></i>
+								<i class="fa-solid fa-clouds"></i>
 							</div>
 						</div>
 					</div>
 				</div>
-        <div class="col-sm-4 offset-sm-2">
+        		<div class="col-3">
 					<div class="stat-card">
 						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">Revenue</p>
-							<h2><i class="fa fa-dollar"></i> 1,254</h2>
-							<div>
-								<span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> 
-								<span class="text-muted">vs last 28 days</span>
-							</div>
+							<p class="text-uppercase mb-1 text-muted">습도</p>
+							<h2 th:text="${weather.humidity}">1,254</h2>
+						
 						</div>
 						<div class="stat-card__icon stat-card__icon--success">
 							<div class="stat-card__icon-circle">
-								<i class="fa fa-suitcase"></i>
+								<i class="fa-solid fa-droplet-degree"></i>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-3">
 					<div class="stat-card">
 						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">Users</p>
-							<h2>21,254</h2>
-							<div>
-								<span class="text-danger font-weight-bold mr-1"><i class="fa fa-arrow-down"></i> -5%</span> 
-								<span class="text-muted">vs last 28 days</span>
-							</div>
+							<p class="text-uppercase mb-1 text-muted">바람</p>
+							<h2 th:text="${weather.wind_speed}">21,254</h2>
+				
 						</div>
 						<div class="stat-card__icon stat-card__icon--primary">
 							<div class="stat-card__icon-circle">
-								<i class="fa fa-users"></i>
+								<i class="fa-solid fa-wind"></i>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="row justify-content-center">
+				<div class="col-6 text-center">
+					<div class="stat-card">
+						<canvas id="line-chart1" width="900" height="500"></canvas>
+					</div>
+				</div>
+				<div class="col-6 text-center">
+					<div class="stat-card">
+						<canvas id="line-chart2" width="900" height="500"></canvas>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  	<script src="https://kit.fontawesome.com/5eb27093de.js" crossorigin="anonymous"></script>
+	<script>
+		new Chart(document.getElementById("line-chart1"), {
+			type: 'line',
+			data: {
+				labels: ["5시", "6시", "7시", "8시", "9시"],
+				datasets: [{ 
+					data: [86,114,106,106,107],
+					label: "온도",
+					borderColor: "#3e95cd",
+					fill: false
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: '시간 별 온도 변화'
+				}
+			}
+		});
+		new Chart(document.getElementById("line-chart2"), {
+			type: 'line',
+			data: {
+				labels: ["5시", "6시", "7시", "8시", "9시"],
+				datasets: [{ 
+					data: [86,114,106,106,107],
+					label: "습도",
+					borderColor: "#3e95cd",
+					fill: false
+				}]
+			},
+			options: {
+				title: {
+					display: true,
+					text: '시간 별 습도 변화'
+				}
+			}
+		});
+	</script>
 </body>
 </html>
