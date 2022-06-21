@@ -7,6 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import youngjun.bigdataProject.domain.dto.*;
+import youngjun.bigdataProject.domain.dto.projection.HUMProjection;
+import youngjun.bigdataProject.domain.dto.projection.TEMProjection;
+import youngjun.bigdataProject.domain.dto.projection.WINDProjection;
 import youngjun.bigdataProject.domain.entity.WeatherEntity;
 import youngjun.bigdataProject.domain.entity.mapping.WeatherData;
 
@@ -60,7 +63,7 @@ public class WeatherService {
         List<String> region = new ArrayList<>();
         List<Double> value = new ArrayList<>();
 
-        for (WeatherEntity w : repository.getTempRank()) {
+        for (TEMProjection w : repository.getTempRank()) {
             region.add(w.getRegion());
             value.add(w.getTemp());
         }
@@ -72,7 +75,7 @@ public class WeatherService {
         List<String> region = new ArrayList<>();
         List<Integer> value = new ArrayList<>();
 
-        for (WeatherEntity w : repository.getHumRank()) {
+        for (HUMProjection w : repository.getHumRank()) {
             region.add(w.getRegion());
             value.add(w.getHumidity());
         }
@@ -84,7 +87,7 @@ public class WeatherService {
         List<String> region = new ArrayList<>();
         List<Double> value = new ArrayList<>();
 
-        for (WeatherEntity w : repository.getWindRank()) {
+        for (WINDProjection w : repository.getWindRank()) {
             region.add(w.getRegion());
             value.add(w.getWind_speed());
         }

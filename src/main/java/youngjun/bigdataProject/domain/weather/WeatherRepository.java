@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import youngjun.bigdataProject.domain.dto.YJS_hum;
 import youngjun.bigdataProject.domain.dto.YJS_temp;
 import youngjun.bigdataProject.domain.dto.YJS_wind;
+import youngjun.bigdataProject.domain.dto.projection.HUMProjection;
+import youngjun.bigdataProject.domain.dto.projection.TEMProjection;
+import youngjun.bigdataProject.domain.dto.projection.WINDProjection;
 import youngjun.bigdataProject.domain.entity.WeatherEntity;
 
 import java.util.List;
@@ -28,12 +31,12 @@ public interface WeatherRepository extends JpaRepository<WeatherEntity, Long> {
     @Query("SELECT w FROM WeatherEntity w where w.region =:region ORDER BY w.createdDate DESC")
     List<WeatherEntity> findTest(@Param("region")String region, Pageable pageable);
 
-    @Query(value = "select max(id) as id, max(temp) as t, region from weather_entity group by region order by t desc LIMIT 4", nativeQuery = true)
-    List<WeatherEntity> getTempRank();
+    @Query(value = "select max(id) as id, max(temp) as temp, region from weather_entity group by region order by temp desc LIMIT 4", nativeQuery = true)
+    List<TEMProjection> getTempRank();
 
-    @Query(value = "select max(id) as id, max(humidity) as t, region from weather_entity group by region order by t desc LIMIT 4", nativeQuery = true)
-    List<WeatherEntity> getHumRank();
+    @Query(value = "select max(id) as id, max(humidity) as humidity, region from weather_entity group by region order by humidity desc LIMIT 4", nativeQuery = true)
+    List<HUMProjection> getHumRank();
 
-    @Query(value = "select max(id) as id, max(wind_speed) as t, region from weather_entity group by region order by t desc LIMIT 4", nativeQuery = true)
-    List<WeatherEntity> getWindRank();
+    @Query(value = "select max(id) as id, max(wind_speed) as wind_speed, region from weather_entity group by region order by wind_speed desc LIMIT 4", nativeQuery = true)
+    List<WINDProjection> getWindRank();
 }
