@@ -6,9 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import youngjun.bigdataProject.domain.entity.WeatherEntity;
-import youngjun.bigdataProject.domain.weather.API;
-import youngjun.bigdataProject.domain.weather.WeatherRepository;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +34,7 @@ public class WeatherScheduler {
             WeatherEntity entity = new WeatherEntity();
             entity.setRegion(region);
             entity.setTemp(bigData.get(region).getWeather().getMain().getTemp());
+            entity.setTemp(Double.parseDouble(String.format("%.1f", bigData.get(region).getWeather().getMain().getTemp() - 273.15)));
             entity.setTemp_min(bigData.get(region).getWeather().getMain().getTempMin());
             entity.setTemp_max(bigData.get(region).getWeather().getMain().getTempMax());
             entity.setWind_speed(bigData.get(region).getWeather().getWind().getSpeed());
@@ -47,15 +45,9 @@ public class WeatherScheduler {
         }
     }
 
-    @Scheduled(cron = "0 */5 * * * *")
+    //@Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void processor() {
         core();
-        for (String region : regions) {
-            log.info(region + " temp={}", bigData.get(region).getWeather().getMain().getTemp());
-        }
-    }
-
-    public Map<String, API> getWeathers() {
-        return bigData;
     }
 }

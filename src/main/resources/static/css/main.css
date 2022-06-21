@@ -25,11 +25,13 @@
 
 .desc {
     font-family: 'Nanum Gothic', sans-serif;
+    color: #3c3c3c;
 }
 
 
 .title {
     font-family: 'Noto Sans KR', sans-serif;
+    font-size: 3.3rem;
 }
 
 @keyframes fadein {
