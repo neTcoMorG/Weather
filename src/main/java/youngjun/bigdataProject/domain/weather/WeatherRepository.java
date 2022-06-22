@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import youngjun.bigdataProject.domain.dto.YJS_hum;
-import youngjun.bigdataProject.domain.dto.YJS_temp;
-import youngjun.bigdataProject.domain.dto.YJS_wind;
 import youngjun.bigdataProject.domain.dto.projection.HUMProjection;
 import youngjun.bigdataProject.domain.dto.projection.TEMProjection;
 import youngjun.bigdataProject.domain.dto.projection.WINDProjection;
@@ -28,7 +25,7 @@ public interface WeatherRepository extends JpaRepository<WeatherEntity, Long> {
     @Query("SELECT w.humidity FROM WeatherEntity w where w.region =:region ORDER BY w.createdDate DESC")
     List<Integer> findHistoryHumidity(@Param("region")String region);
 
-    @Query("SELECT w FROM WeatherEntity w where w.region =:region ORDER BY w.createdDate DESC")
+    @Query("SELECT w FROM WeatherEntity w where w.region =:region ORDER BY w.createdDate ASC")
     List<WeatherEntity> findTest(@Param("region")String region, Pageable pageable);
 
     @Query(value = "select max(id) as id, max(temp) as temp, region from weather_entity group by region order by temp desc LIMIT 4", nativeQuery = true)
