@@ -12,15 +12,19 @@ import java.util.Map;
 @Slf4j
 @Component
 @Transactional
-@RequiredArgsConstructor
 public class WeatherScheduler {
 
-    private final WeatherRepository repository;
+    private WeatherRepository repository;
     private Map<String, API> bigData = new HashMap<>();
     private final String[] regions = {"Seoul", "Busan", "Daegu", "Incheon", "Gwangju", "Daejeon",
             "Ulsan", "Gyeonggi-do", "Gangwon-do", "Chungcheongbuk-do", "Chungcheongnam-do", "Jeollabuk-do",
             "Jeollanam-do", "Gyeongsangbuk-do", "Gyeongsangnam-do", "Jeju-do", "Sejong"
     };
+
+    public WeatherScheduler(WeatherRepository repository) {
+        this.repository = repository;
+        core();
+    }
 
     public void core() {
         for (String region : regions) {
@@ -46,7 +50,7 @@ public class WeatherScheduler {
     }
 
     //@Scheduled(cron = "0 */5 * * * *")
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 0/1 * * *")
     public void processor() {
         core();
     }
