@@ -1,6 +1,8 @@
 package youngjun.bigdataProject.domain.entity;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import youngjun.bigdataProject.domain.entity.mapping.WeatherData;
@@ -8,14 +10,13 @@ import youngjun.bigdataProject.domain.entity.mapping.WeatherData;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class WeatherEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Weather {
 
-    public WeatherEntity() {}
-    public WeatherEntity(String region, WeatherData data) {
-        this.region = region;
+    public Weather (Region region, WeatherData data) {
         temp = Double.parseDouble(String.format("%.1f", data.getMain().getTemp() - 273.15));
         temp_min = data.getMain().getTempMin();
         temp_max = data.getMain().getTempMax();
@@ -25,10 +26,8 @@ public class WeatherEntity {
         main = data.getWeather().get(0).getMain();
     }
 
-    @Id @GeneratedValue
-    private Long id;
-
-    private String region;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+    @ManyToOne @JoinColumn(name = "REGION") Region region;
     private String status;
     private String main;
     private int humidity;
@@ -37,7 +36,5 @@ public class WeatherEntity {
     private double temp_max;
     private double wind_speed;
 
-    @Column(updatable = false)
-    @CreationTimestamp
-    protected LocalDateTime createdDate;
+    @Column(updatable = false) @CreationTimestamp private LocalDateTime createdDate;
 }
