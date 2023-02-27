@@ -2,7 +2,6 @@ package youngjun.bigdataProject.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import youngjun.bigdataProject.domain.entity.Region;
 import youngjun.bigdataProject.domain.entity.Weather;
 import youngjun.bigdataProject.domain.repository.RegionRepository;
@@ -11,6 +10,7 @@ import youngjun.bigdataProject.domain.weather.api.Api;
 import youngjun.bigdataProject.domain.weather.api.mapping.WeatherData;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Component
@@ -37,7 +37,6 @@ public class Init {
         }
     }
 
-    @Transactional
     private void initWeather () {
         for (String region : Init.REGIONS) {
             WeatherData data = Api.getWeather(region);
