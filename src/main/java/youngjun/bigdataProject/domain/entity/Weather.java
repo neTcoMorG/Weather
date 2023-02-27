@@ -3,15 +3,17 @@ package youngjun.bigdataProject.domain.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import youngjun.bigdataProject.domain.entity.mapping.WeatherData;
+import youngjun.bigdataProject.domain.weather.api.mapping.WeatherData;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@ToString
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Weather {
@@ -36,6 +38,5 @@ public class Weather {
     private double temp_min;
     private double temp_max;
     private double wind_speed;
-
     @Column(updatable = false) @CreationTimestamp private LocalDateTime createdDate;
 }

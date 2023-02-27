@@ -1,5 +1,5 @@
 
-package youngjun.bigdataProject.domain.entity.mapping;
+package youngjun.bigdataProject.domain.weather.api.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,24 +13,37 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "type",
     "id",
-    "main",
-    "description",
-    "icon"
+    "country",
+    "sunrise",
+    "sunset"
 })
 @Generated("jsonschema2pojo")
-public class Weather {
+public class Sys {
 
+    @JsonProperty("type")
+    private Integer type;
     @JsonProperty("id")
     private Integer id;
-    @JsonProperty("main")
-    private String main;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("icon")
-    private String icon;
+    @JsonProperty("country")
+    private String country;
+    @JsonProperty("sunrise")
+    private Integer sunrise;
+    @JsonProperty("sunset")
+    private Integer sunset;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("type")
+    public Integer getType() {
+        return type;
+    }
+
+    @JsonProperty("type")
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     @JsonProperty("id")
     public Integer getId() {
@@ -42,34 +55,34 @@ public class Weather {
         this.id = id;
     }
 
-    @JsonProperty("main")
-    public String getMain() {
-        return main;
+    @JsonProperty("country")
+    public String getCountry() {
+        return country;
     }
 
-    @JsonProperty("main")
-    public void setMain(String main) {
-        this.main = main;
+    @JsonProperty("country")
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    @JsonProperty("description")
-    public String getDescription() {
-        return description;
+    @JsonProperty("sunrise")
+    public Integer getSunrise() {
+        return sunrise;
     }
 
-    @JsonProperty("description")
-    public void setDescription(String description) {
-        this.description = description;
+    @JsonProperty("sunrise")
+    public void setSunrise(Integer sunrise) {
+        this.sunrise = sunrise;
     }
 
-    @JsonProperty("icon")
-    public String getIcon() {
-        return icon;
+    @JsonProperty("sunset")
+    public Integer getSunset() {
+        return sunset;
     }
 
-    @JsonProperty("icon")
-    public void setIcon(String icon) {
-        this.icon = icon;
+    @JsonProperty("sunset")
+    public void setSunset(Integer sunset) {
+        this.sunset = sunset;
     }
 
     @JsonAnyGetter

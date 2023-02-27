@@ -1,5 +1,5 @@
 
-package youngjun.bigdataProject.domain.entity.mapping;
+package youngjun.bigdataProject.domain.weather.api.mapping;
 
 import java.util.HashMap;
 import java.util.Map;

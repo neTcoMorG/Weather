@@ -1,8 +1,8 @@
-package youngjun.bigdataProject.domain.weather;
+package youngjun.bigdataProject.domain.weather.api;
 
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import youngjun.bigdataProject.domain.entity.mapping.WeatherData;
+import youngjun.bigdataProject.domain.weather.api.mapping.WeatherData;
 
 import java.net.URI;
 
