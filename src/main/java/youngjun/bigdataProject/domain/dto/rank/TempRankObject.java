@@ -5,12 +5,9 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class TempRankObject {
-    private List<String> name;
-    private List<Double> value;
+public class TempRankObject extends RankObject{
 
     public TempRankObject(List<String> name, List<Double> value) {
-        this.name = name;
-        this.value = value;
+        super(name, value);
     }
 }

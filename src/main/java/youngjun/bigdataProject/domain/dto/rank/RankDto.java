@@ -8,11 +8,13 @@ import java.util.List;
 @Getter
 public class RankDto {
 
-    private TempRankObject tempRankObject;
-    private WindRankObject windRankObject;
+    private RankObject tempRankObject;
+    private RankObject windRankObject;
+    private RankObject humRankObject;
 
-    public RankDto(TempRankObject tempRankObject, WindRankObject windRankObject) {
+    public RankDto(RankObject tempRankObject, RankObject windRankObject, RankObject humRankObject) {
         this.tempRankObject = tempRankObject;
         this.windRankObject = windRankObject;
+        this.humRankObject = humRankObject;
     }
 }

@@ -5,12 +5,8 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class WindRankObject {
-    private List<String> name;
-    private List<Double> value;
-
+public class WindRankObject extends RankObject {
     public WindRankObject(List<String> name, List<Double> value) {
-        this.name = name;
-        this.value = value;
+        super(name, value);
     }
 }

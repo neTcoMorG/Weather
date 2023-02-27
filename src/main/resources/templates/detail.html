@@ -8,7 +8,7 @@
 <body>
   <section class="main-content">
 		<div class="container">
-			<h1 class="text-center text-uppercase">날씨 통계</h1>
+			<h1 class="text-center text-uppercase" th:text="|${name} 날씨 통계|">날씨 통계</h1>
 			<br/>
 			<br/>
 			<div class="row">
@@ -58,7 +58,6 @@
 						<div class="stat-card__content">
 							<p class="text-uppercase mb-1 text-muted">바람</p>
 							<h2 th:text="${weather.wind_speed}">21,254</h2>
-				
 						</div>
 						<div class="stat-card__icon stat-card__icon--primary">
 							<div class="stat-card__icon-circle">
@@ -68,15 +67,15 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<div class="row justify-content-center">
-					<div class="col-12 text-center">
-						<div class="stat-card">
-							<div id="container" style="width:100%; height:100%;"></div>
-						</div>
-					</div>
-				</div>
-			</div>
+<!--			<div>-->
+<!--				<div class="row justify-content-center">-->
+<!--					<div class="col-12 text-center">-->
+<!--						<div class="stat-card">-->
+<!--							<div id="container" style="width:100%; height:100%;"></div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
 			<div class="row justify-content-center">
 				<div class="col-6 text-center">
 					<div class="stat-card">
@@ -124,62 +123,76 @@ const tempChart = Highcharts.chart('temp-line', {
 	chart: { type: 'line' },
 	title: { text: '온도 변화량' },
 
-	xAxis: { categories: [[${temp_object.tempTimeList}]] },
+	xAxis: { categories: [[${temp_object.tempTimeList}]].reverse() },
 	yAxis: { title: { text: '온도' } },
 
 	legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
 	tooltip: {valueSuffix: '도'},
 
 	series: [
-		{ name: '', data: [[${temp_object.tempValueList}]] },
+		{ name: '', data: [[${temp_object.tempValueList}]].reverse() },
 	]
 });
 const humChart = Highcharts.chart('hum-line', {
 	chart: { type: 'line' },
 	title: { text: '습도 변화량' },
 
-	xAxis: { categories: [[${hum_object.humTimeList}]] },
+	xAxis: { categories: [[${hum_object.humTimeList}]].reverse() },
 	yAxis: { title: { text: '습도' } },
 
 	legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
 	tooltip: {valueSuffix: ''},
 
 	series: [
-		{ name: '', data: [[${hum_object.humValueList}]] },
+		{ name: '', data: [[${hum_object.humValueList}]].reverse() },
 	]
 });
 
 const tempRank = Highcharts.chart('temp-rank', {
-  chart: { type: 'column' },
-  title: { text: '온도 순위' },
-  xAxis: { categories: [[${temp_rank.name}]]},
-  yAxis: { title: { text: '' } },
-  tooltip: { valueSuffix: ' 도' },
-  legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
-  series: [
-    {
-      name: '',
-      data: [[${temp_rank.value}]],
-      borderColor: '#5997DE'
-    }
-  ]
+	chart: { type: 'column' },
+	title: { text: '온도 순위' },
+	xAxis: { categories: [[${temp_rank.name}]]},
+	yAxis: { title: { text: null } },
+	tooltip: { valueSuffix: ' 도' },
+	legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
+	series: [{
+	  name: '',
+	  data: [[${temp_rank.value}]],
+	  borderColor: '#5997DE'
+	}]
 });
 
-const windRank = Highcharts.chart('temp-rank', {
-  chart: { type: 'column' },
-  title: { text: '온도 순위' },
-  xAxis: { categories: [[${temp_rank.name}]]},
-  yAxis: { title: { text: '' } },
-  tooltip: { valueSuffix: ' 도' },
-  legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
-  series: [
-    {
-      name: '',
-      data: [[${temp_rank.value}]],
-      borderColor: '#5997DE'
-    }
-  ]
+const windRank = Highcharts.chart('wind-rank', {
+	chart: { type: 'column' },
+	title: { text: '바람 순위' },
+	xAxis: { categories: [[${wind_rank.name}]]},
+	yAxis: { title: { text: null } },
+	tooltip: { valueSuffix: '' },
+	legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
+	series: [{
+	  name: '',
+	  data: [[${wind_rank.value}]],
+	  borderColor: '#5997DE'
+	}]
 });
+
+const humRank = Highcharts.chart('hum-rank', {
+	chart: { type: 'column' },
+	title: { text: '습도 순위' },
+	xAxis: { categories: [[${hum_rank.name}]]},
+	yAxis: { title: { text: null } },
+	tooltip: { valueSuffix: '' },
+	legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
+	series: [{
+	  name: '',
+	  data: [[${hum_rank.value}]],
+	  borderColor: '#5997DE'
+	}]
+});
+
+tempRank.reflow();
+windRank.reflow();
+humRank.reflow();
 
 </script>
 </html>

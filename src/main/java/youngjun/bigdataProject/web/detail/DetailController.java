@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import youngjun.bigdataProject.domain.dto.rank.RankDto;
 import youngjun.bigdataProject.domain.dto.weather.WeatherDto;
+import youngjun.bigdataProject.domain.weather.RankService;
 import youngjun.bigdataProject.domain.weather.RegionService;
 
 @Slf4j
@@ -20,12 +21,14 @@ import youngjun.bigdataProject.domain.weather.RegionService;
 public class DetailController {
 
     private final RegionService regionService;
+    private final RankService rankService;
 
     @GetMapping("/{region}")
     public String detail(@PathVariable String region, Model model) {
         WeatherDto weather = regionService.getWeather(region);
-        RankDto rank = regionService.getRank((byte)4);
+        RankDto rank = rankService.getRank((byte)4);
 
+        model.addAttribute("name", weather.getRecent().getRegion().getName());
         initModel(model, weather, rank);
         return "detail";
     }
@@ -34,6 +37,7 @@ public class DetailController {
         model.addAttribute("weather", weather.getRecent());
         model.addAttribute("temp_rank", rank.getTempRankObject());
         model.addAttribute("wind_rank", rank.getWindRankObject());
+        model.addAttribute("hum_rank", rank.getHumRankObject());
         model.addAttribute("temp_object", weather.getTempObject());
         model.addAttribute("hum_object", weather.getHumObject());
     }

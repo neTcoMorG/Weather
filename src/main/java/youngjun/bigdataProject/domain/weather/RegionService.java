@@ -13,7 +13,9 @@ import youngjun.bigdataProject.domain.entity.Region;
 import youngjun.bigdataProject.domain.entity.Weather;
 import youngjun.bigdataProject.domain.repository.RegionRepository;
 import youngjun.bigdataProject.domain.repository.WeatherRepository;
+import youngjun.bigdataProject.domain.weather.util.TimeUtil;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -36,14 +38,6 @@ public class RegionService {
                 getHumObject(totalWeather));
     }
 
-    public RankDto getRank (byte limit) {
-        List<Weather> test = weatherRepository.findTop17ByOrderByIdDesc();
-
-        return new RankDto(
-                getTempRankObject(limit, test),
-                getWindRankObject(limit, test));
-    }
-
     private Weather getRecentWeather (List<Weather> weatherList) {
         return weatherList.get(0);
     }
@@ -56,47 +50,13 @@ public class RegionService {
         return regionRepository.findByName(region).orElseThrow();
     }
 
-    private TempRankObject getTempRankObject (byte limit, List<Weather> weatherList) {
-        List<Weather> calc = weatherList.stream()
-                .sorted(Comparator.comparing(Weather::getTemp).reversed())
-                .collect(Collectors.toList())
-                .subList(0, limit);
-
-        List<String> names = new ArrayList<>();
-        List<Double> values = new ArrayList<>();
-
-        calc.forEach(weather -> {
-            names.add(weather.getRegion().getName());
-            values.add(weather.getTemp());
-        });
-
-        return new TempRankObject(names, values);
-    }
-
-    private WindRankObject getWindRankObject (byte limit, List<Weather> weatherList) {
-        List<Weather> calc = weatherList.stream()
-                .sorted(Comparator.comparing(Weather::getWind_speed).reversed())
-                .collect(Collectors.toList())
-                .subList(0, limit);
-
-        List<String> names = new ArrayList<>();
-        List<Double> values = new ArrayList<>();
-
-        calc.forEach(weather -> {
-            names.add(weather.getRegion().getName());
-            values.add(weather.getTemp());
-        });
-
-        return new WindRankObject(names, values);
-    }
-
     private TempObject getTempObject (List<Weather> weatherList) {
         List<Double> tempList = new ArrayList<>();
         List<String> timeList = new ArrayList<>();
 
         weatherList.forEach(w -> {
             tempList.add(w.getTemp());
-            timeList.add(w.getCreatedDate().toString());
+            timeList.add(TimeUtil.txtDate(Timestamp.valueOf(w.getCreatedDate())));
         });
 
         return new TempObject(tempList, timeList);
@@ -107,7 +67,7 @@ public class RegionService {
         List<String> timeList = new ArrayList<>();
         weatherList.forEach(w -> {
             humList.add(w.getHumidity());
-            timeList.add(w.getCreatedDate().toString());
+            timeList.add(TimeUtil.txtDate(Timestamp.valueOf(w.getCreatedDate())));
         });
 
         return new HumObject(humList, timeList);
