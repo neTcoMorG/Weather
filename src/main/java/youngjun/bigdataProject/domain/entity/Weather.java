@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class Weather {
 
     public Weather (Region region, WeatherData data) {
+        this.region = region;
         temp = Double.parseDouble(String.format("%.1f", data.getMain().getTemp() - 273.15));
         temp_min = data.getMain().getTempMin();
         temp_max = data.getMain().getTempMax();

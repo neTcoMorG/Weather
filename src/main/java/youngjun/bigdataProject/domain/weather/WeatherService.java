@@ -1,6 +1,5 @@
 package youngjun.bigdataProject.domain.weather;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -10,10 +9,9 @@ import youngjun.bigdataProject.domain.dto.*;
 import youngjun.bigdataProject.domain.dto.projection.HUMProjection;
 import youngjun.bigdataProject.domain.dto.projection.TEMProjection;
 import youngjun.bigdataProject.domain.dto.projection.WINDProjection;
-import youngjun.bigdataProject.domain.entity.WeatherEntity;
-import youngjun.bigdataProject.domain.entity.mapping.WeatherData;
+import youngjun.bigdataProject.domain.entity.Weather;
+import youngjun.bigdataProject.domain.repository.WeatherRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,21 +25,21 @@ public class WeatherService {
 
     private final Pageable topSix  = PageRequest.of(0, 6);
 
-    public WeatherEntity getWeather(String region) {
-        Optional<WeatherEntity> find = repository.findByRegion(region);
+    public Weather getWeather(String region) {
+        Optional<Weather> find = repository.findByRegion(region);
         return find.orElse(null);
     }
 
-    public WeatherEntity requestWeather(String region) {
-        API api = new API(region);
-        return new WeatherEntity(region, api.getWeather());
+    public Weather requestWeather(String region) {
+        Api api = new Api(region);
+        return new Weather(region, api.getWeather());
     }
 
     public HistoryData<Double> getHistoryTemp(String region) {
         List<Double> value = new ArrayList<>();
         List<String> time = new ArrayList<>();
 
-        for (WeatherEntity w : repository.findTest(region, topSix)) {
+        for (Weather w : repository.findTest(region, topSix)) {
             value.add(w.getTemp());
             time.add(String.valueOf(w.getCreatedDate().getDayOfMonth() + "일"));
         }
@@ -52,7 +50,7 @@ public class WeatherService {
         List<Integer> value = new ArrayList<>();
         List<String> time = new ArrayList<>();
 
-        for (WeatherEntity w : repository.findTest(region, topSix)) {
+        for (Weather w : repository.findTest(region, topSix)) {
             value.add(w.getHumidity());
             time.add(w.getCreatedDate().getDayOfMonth() + "일");
         }

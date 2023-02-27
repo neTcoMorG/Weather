@@ -1,20 +1,19 @@
 package youngjun.bigdataProject.domain.weather;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import youngjun.bigdataProject.domain.entity.mapping.WeatherData;
 
 import java.net.URI;
 
-public class API {
+public class Api {
 
-    private RestTemplate rest;
-    private String region;
-    private URI uri;
+    private static RestTemplate rest;
+    private static URI uri;
 
-    public API (String region) {
-        this.region = region;
+    private Api () {}
+
+    public static WeatherData getWeather (String region) {
         uri = UriComponentsBuilder
                 .fromUriString("https://api.openweathermap.org")
                 .path("/data/2.5/weather")
@@ -25,10 +24,6 @@ public class API {
                 .build()
                 .toUri();
         rest = new RestTemplate();
-    }
-
-    public WeatherData getWeather() {
-        ResponseEntity<WeatherData> result = rest.getForEntity(uri, WeatherData.class);
-        return result.getBody();
+        return rest.getForEntity(uri, WeatherData.class).getBody();
     }
 }

@@ -11,8 +11,11 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Region {
+
+    public Region(String name) {
+        this.name = name;
+    }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private String name;
