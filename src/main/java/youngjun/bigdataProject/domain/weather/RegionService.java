@@ -11,6 +11,7 @@ import youngjun.bigdataProject.domain.dto.weather.TempObject;
 import youngjun.bigdataProject.domain.dto.weather.WeatherDto;
 import youngjun.bigdataProject.domain.entity.Region;
 import youngjun.bigdataProject.domain.entity.Weather;
+import youngjun.bigdataProject.domain.repository.MemoryCacheRepository;
 import youngjun.bigdataProject.domain.repository.RegionRepository;
 import youngjun.bigdataProject.domain.repository.WeatherRepository;
 import youngjun.bigdataProject.domain.weather.util.TimeUtil;
@@ -28,6 +29,7 @@ public class RegionService {
 
     private final RegionRepository regionRepository;
     private final WeatherRepository weatherRepository;
+    private final MemoryCacheRepository memoryCacheRepository;
 
     public WeatherDto getWeather (String region) {
         List<Weather> totalWeather = getTotalWeather(region);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import youngjun.bigdataProject.domain.entity.Region;
 import youngjun.bigdataProject.domain.entity.Weather;
+import youngjun.bigdataProject.domain.repository.MemoryCacheRepository;
 import youngjun.bigdataProject.domain.weather.api.Api;
 import youngjun.bigdataProject.domain.weather.api.mapping.WeatherData;
 import youngjun.bigdataProject.domain.repository.RegionRepository;
@@ -20,12 +21,19 @@ public class WeatherScheduler {
 
     private final WeatherRepository weatherRepository;
     private final RegionRepository regionRepository;
+    private final MemoryCacheRepository memoryCacheRepository;
 
     @Transactional
-    public void core() {
-        for (String region : Init.REGIONS) {
-            WeatherData data = Api.getWeather(region);
-            weatherRepository.save(createWeatherEntity(region, data));
+    public void core() throws Exception {
+//        for (String region : Init.REGIONS) {
+//            WeatherData data = Api.getWeather(region);
+//            weatherRepository.save(createWeatherEntity(region, data));
+//        }
+
+        for (int i=0; i<Init.REGIONS.length; i++) {
+            WeatherData data = Api.getWeather(Init.REGIONS[i]);
+            weatherRepository.save(createWeatherEntity(Init.KOREAN[i], data));
+            memoryCacheRepository.updateCache(Init.KOREAN[i], data);
         }
     }
 
@@ -35,7 +43,7 @@ public class WeatherScheduler {
     }
 
     @Scheduled(cron = "0 0 0/1 * * *")
-    public void processor() {
+    public void processor() throws Exception {
         core();
     }
 }
