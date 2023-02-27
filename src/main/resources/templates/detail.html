@@ -6,115 +6,120 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <section class="main-content">
-		<div class="container">
-			<h1 class="text-center text-uppercase" th:text="|${name} 날씨 통계|">날씨 통계</h1>
-			<br/>
-			<br/>
-			<div class="row">
-				<div class="col-3">
-					<div class="stat-card justify-content-around">
-						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">온도</p>
-							<h2 th:text="${weather.temp}"></h2>
-			
-						</div>
-						<div class="stat-card__icon stat-card__icon--success">
-							<div class="stat-card__icon-circle">
-								<i class="fa fa-thermometer-quarter"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="stat-card justify-content-around">
-						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">날씨</p>
-							<h2 th:text="${weather.status}">1,254</h2>
+	<div class="wrapper">
+		<section class="main-content">
+			<div class="container">
+				<h1 class="text-center text-uppercase" th:text="|${name} 날씨 통계|">날씨 통계</h1>
+				<br/>
+				<br/>
+				<div class="row">
+					<div class="col-3">
+						<div class="stat-card justify-content-around">
+							<div class="stat-card__content">
+								<p class="text-uppercase mb-1 text-muted">온도</p>
+								<h2 th:text="${weather.temp}"></h2>
 				
+							</div>
+							<div class="stat-card__icon stat-card__icon--success">
+								<div class="stat-card__icon-circle">
+									<i class="fa fa-thermometer-quarter"></i>
+								</div>
+							</div>
 						</div>
-						<div class="stat-card__icon stat-card__icon--success">
-							<div class="stat-card__icon-circle">
-								<i class="fa fa-cloud"></i>
+					</div>
+					<div class="col-3">
+						<div class="stat-card justify-content-around">
+							<div class="stat-card__content">
+								<p class="text-uppercase mb-1 text-muted">날씨</p>
+								<h2 th:text="${weather.status}">1,254</h2>
+					
+							</div>
+							<div class="stat-card__icon stat-card__icon--success">
+								<div class="stat-card__icon-circle">
+									<i class="fa fa-cloud"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="stat-card justify-content-around">
+							<div class="stat-card__content">
+								<p class="text-uppercase mb-1 text-muted">습도</p>
+								<h2 th:text="${weather.humidity}">1,254</h2>
+							</div>
+							<div class="stat-card__icon stat-card__icon--primary">
+								<div class="stat-card__icon-circle">
+									<i class="fa fa-meh-o"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="stat-card justify-content-around">
+							<div class="stat-card__content">
+								<p class="text-uppercase mb-1 text-muted">바람</p>
+								<h2 th:text="${weather.wind_speed}">21,254</h2>
+							</div>
+							<div class="stat-card__icon stat-card__icon--primary">
+								<div class="stat-card__icon-circle">
+									<i class="fa-solid fa-wind"></i>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-        		<div class="col-3">
-					<div class="stat-card justify-content-around">
-						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">습도</p>
-							<h2 th:text="${weather.humidity}">1,254</h2>
+	  <!--			<div>-->
+	  <!--				<div class="row justify-content-center">-->
+	  <!--					<div class="col-12 text-center">-->
+	  <!--						<div class="stat-card">-->
+	  <!--							<div id="container" style="width:100%; height:100%;"></div>-->
+	  <!--						</div>-->
+	  <!--					</div>-->
+	  <!--				</div>-->
+	  <!--			</div>-->
+				<div class="row justify-content-center">
+					<div class="col-6 text-center">
+						<div class="stat-card">
+							<!-- <canvas id="line-chart1" width="900" height="500"></canvas> -->
+							<div id="temp-line" style="width: 100%; height: 500;"></div>
 						</div>
-						<div class="stat-card__icon stat-card__icon--primary">
-							<div class="stat-card__icon-circle">
-								<i class="fa fa-meh-o"></i>
-							</div>
+					</div>
+					<div class="col-6 text-center">
+						<div class="stat-card">
+							<!-- <canvas id="line-chart2" width="900" height="500"></canvas> -->
+							<div id="hum-line" style="width: 100%; height: 500;"></div>
 						</div>
 					</div>
 				</div>
-				<div class="col-3">
-					<div class="stat-card justify-content-around">
-						<div class="stat-card__content">
-							<p class="text-uppercase mb-1 text-muted">바람</p>
-							<h2 th:text="${weather.wind_speed}">21,254</h2>
+				<br/>
+				<h1 class="text-center text-uppercase mb-2 mt-2">지역별 비교</h1>
+				<br/>
+				<div class="row justify-content-center">
+					<div class="col-4 text-center">
+						<div class="stat-card">
+							<!-- <canvas id="tempBar1" width="900" height="700"></canvas> -->
+							<div id="temp-rank" style="width: 950; height: 700;"></div>
 						</div>
-						<div class="stat-card__icon stat-card__icon--primary">
-							<div class="stat-card__icon-circle">
-								<i class="fa-solid fa-wind"></i>
-							</div>
+					</div>
+					<div class="col-4 text-center">
+						<div class="stat-card">
+							<!-- <canvas id="tempBar2" width="900" height="700"></canvas> -->
+							<div id="wind-rank" style="width: 950; height: 700;"></div>
+						</div>
+					</div>
+					<div class="col-4 text-center">
+						<div class="stat-card">
+							<!-- <canvas id="tempBar3" width="900" height="700"></canvas> -->
+							<div id="hum-rank" style="width: 950; height: 700;"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-<!--			<div>-->
-<!--				<div class="row justify-content-center">-->
-<!--					<div class="col-12 text-center">-->
-<!--						<div class="stat-card">-->
-<!--							<div id="container" style="width:100%; height:100%;"></div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-			<div class="row justify-content-center">
-				<div class="col-6 text-center">
-					<div class="stat-card">
-						<!-- <canvas id="line-chart1" width="900" height="500"></canvas> -->
-						<div id="temp-line" style="width: 900; height: 500;"></div>
-					</div>
-				</div>
-				<div class="col-6 text-center">
-					<div class="stat-card">
-						<!-- <canvas id="line-chart2" width="900" height="500"></canvas> -->
-						<div id="hum-line" style="width: 900; height: 500;"></div>
-					</div>
-				</div>
-			</div>
-			<br/>
-			<h1 class="text-center text-uppercase mb-2 mt-2">지역별 비교</h1>
-			<br/>
-			<div class="row justify-content-center">
-				<div class="col-4 text-center">
-					<div class="stat-card">
-						<!-- <canvas id="tempBar1" width="900" height="700"></canvas> -->
-						<div id="temp-rank" style="width: 950; height: 700;"></div>
-					</div>
-				</div>
-				<div class="col-4 text-center">
-					<div class="stat-card">
-						<!-- <canvas id="tempBar2" width="900" height="700"></canvas> -->
-						<div id="wind-rank" style="width: 950; height: 700;"></div>
-					</div>
-				</div>
-				<div class="col-4 text-center">
-					<div class="stat-card">
-						<!-- <canvas id="tempBar3" width="900" height="700"></canvas> -->
-						<div id="hum-rank" style="width: 950; height: 700;"></div>
-					</div>
-				</div>
-			</div>
+		</section>
+		<div class="detail-korea">
+			<object type="image/svg+xml" data="/img/southKoreaHigh.svg" class="object"></object>
 		</div>
-	</section>
+	</div>
 </body>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://kit.fontawesome.com/5eb27093de.js" crossorigin="anonymous"></script>
@@ -124,7 +129,7 @@ const tempChart = Highcharts.chart('temp-line', {
 	title: { text: '온도 변화량' },
 
 	xAxis: { categories: [[${temp_object.tempTimeList}]].reverse() },
-	yAxis: { title: { text: '온도' } },
+	yAxis: { title: { text: '' } },
 
 	legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
 	tooltip: {valueSuffix: '도'},
@@ -138,7 +143,7 @@ const humChart = Highcharts.chart('hum-line', {
 	title: { text: '습도 변화량' },
 
 	xAxis: { categories: [[${hum_object.humTimeList}]].reverse() },
-	yAxis: { title: { text: '습도' } },
+	yAxis: { title: { text: '' } },
 
 	legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth:0 },
 	tooltip: {valueSuffix: ''},
