@@ -27,5 +27,4 @@ public class MemoryCacheRepository {
             throw new NullPointerException();
         cache.replace(region, weather);
     }
-
 }

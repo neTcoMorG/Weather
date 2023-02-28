@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @EnableJpaAuditing
 public class HomeController {
 
-    @GetMapping("/")
-    public String home(Model model) {
-        log.info("접속감지");
-        model.addAttribute("test", "hello, world");
+    @GetMapping
+    public String home() {
         return "korea";
     }
 }
